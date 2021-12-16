@@ -1,0 +1,347 @@
+#----------------------------------- START ----------------------------#
+
+# Load Libraries
+pacman::p_load(pacman, caTools, e1071, ggplot2, psych, tidyverse, Metrics)
+
+# Set Working Directory
+setwd("C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project")
+
+
+# Import data set
+dataset <-  read.csv("C:\\Benion\\Benion Programmings\\Python\\AI & ML\\data\\benion-tree-height-diameter-dataset.csv", head=TRUE, sep=",")
+head(dataset, n = 10)
+summary(dataset)
+describe(dataset)
+data_description <- describe(dataset)
+unique_species_dataset <- data.frame("Unique Species"=unique(dataset$SPECIES))
+
+
+#-------------------- EXploratory Data Analysis ----------------------------#
+
+# All Species Distribution Plot
+ggplot() +
+  geom_point(aes(x = dataset$DIAMETER, y = dataset$HEIGHT), colour = "red") +
+  ggtitle("Tree Height vs Diameter (Data Distribution)") +
+  xlab("Diameter") +
+  ylab("Height")
+
+#---------- Unique Species Distribution Table ---------------------#
+
+# Tectona grandis Species Table
+tg_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Tectona grandis"]
+tg_species <- dataset$SPECIES[dataset$SPECIES == "Tectona grandis"]
+tg_diameter <- dataset$DIAMETER[dataset$SPECIES == "Tectona grandis"]
+tg_height <- dataset$HEIGHT[dataset$SPECIES == "Tectona grandis"]
+t_grandis_table <- data.frame("Plot No"=tg_plot_no, "Species"=tg_species, "Diameter"=tg_diameter, "Height"=tg_height)
+
+# Kashier(Tiv) Species Table
+k_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Kashier(Tiv)"]
+k_species <- dataset$SPECIES[dataset$SPECIES == "Kashier(Tiv)"]
+k_diameter <- dataset$DIAMETER[dataset$SPECIES == "Kashier(Tiv)"]
+k_height <- dataset$HEIGHT[dataset$SPECIES == "Kashier(Tiv)"]
+kashier_table <- data.frame("Plot No"=k_plot_no, "Species"=k_species, "Diameter"=k_diameter, "Height"=k_height)
+
+# Daniella olivera Species Table
+do_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Daniella olivera"]
+do_species <- dataset$SPECIES[dataset$SPECIES == "Daniella olivera"]
+do_diameter <- dataset$DIAMETER[dataset$SPECIES == "Daniella olivera"]
+do_height <- dataset$HEIGHT[dataset$SPECIES == "Daniella olivera"]
+d_olivera_table <- data.frame("Plot No"=do_plot_no, "Species"=do_species, "Diameter"=do_diameter, "Height"=do_height)
+
+# Gmelina arborea Species Table
+ga_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Gmelina arborea"]
+ga_species <- dataset$SPECIES[dataset$SPECIES == "Gmelina arborea"]
+ga_diameter <- dataset$DIAMETER[dataset$SPECIES == "Gmelina arborea"]
+ga_height <- dataset$HEIGHT[dataset$SPECIES == "Gmelina arborea"]
+g_arborea_table <- data.frame("Plot No"=ga_plot_no, "Species"=ga_species, "Diameter"=ga_diameter, "Height"=ga_height)
+
+# Khaya senegalensis Species Table
+ks_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Khaya senegalensis"]
+ks_species <- dataset$SPECIES[dataset$SPECIES == "Khaya senegalensis"]
+ks_diameter <- dataset$DIAMETER[dataset$SPECIES == "Khaya senegalensis"]
+ks_height <- dataset$HEIGHT[dataset$SPECIES == "Khaya senegalensis"]
+k_senegalensis_table <- data.frame("Plot No"=ks_plot_no, "Species"=ks_species, "Diameter"=ks_diameter, "Height"=ks_height)
+
+# Vitex doniana Species Table
+vd_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Vitex doniana"]
+vd_species <- dataset$SPECIES[dataset$SPECIES == "Vitex doniana"]
+vd_diameter <- dataset$DIAMETER[dataset$SPECIES == "Vitex doniana"]
+vd_height <- dataset$HEIGHT[dataset$SPECIES == "Vitex doniana"]
+v_doniana_table <- data.frame("Plot No"=vd_plot_no, "Species"=vd_species, "Diameter"=vd_diameter, "Height"=vd_height)
+
+# Anthocleista djalonensis Species Table
+ad_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Anthocleista djalonensis"]
+ad_species <- dataset$SPECIES[dataset$SPECIES == "Anthocleista djalonensis"]
+ad_diameter <- dataset$DIAMETER[dataset$SPECIES == "Anthocleista djalonensis"]
+ad_height <- dataset$HEIGHT[dataset$SPECIES == "Anthocleista djalonensis"]
+a_djalonensis_table <- data.frame("Plot No"=ad_plot_no, "Species"=ad_species, "Diameter"=ad_diameter, "Height"=ad_height)
+
+# Mangifera indica Species Table
+mi_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Mangifera indica"]
+mi_species <- dataset$SPECIES[dataset$SPECIES == "Mangifera indica"]
+mi_diameter <- dataset$DIAMETER[dataset$SPECIES == "Mangifera indica"]
+mi_height <- dataset$HEIGHT[dataset$SPECIES == "Mangifera indica"]
+m_indica_table <- data.frame("Plot No"=mi_plot_no, "Species"=mi_species, "Diameter"=mi_diameter, "Height"=mi_height)
+
+# Afzelia africana Species Table
+aa_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Afzelia africana"]
+aa_species <- dataset$SPECIES[dataset$SPECIES == "Afzelia africana"]
+aa_diameter <- dataset$DIAMETER[dataset$SPECIES == "Afzelia africana"]
+aa_height <- dataset$HEIGHT[dataset$SPECIES == "Afzelia africana"]
+a_africana_table <- data.frame("Plot No"=aa_plot_no, "Species"=aa_species, "Diameter"=aa_diameter, "Height"=aa_height)
+
+# Pterocarpus erinaceus Species Table
+pe_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Pterocarpus erinaceus"]
+pe_species <- dataset$SPECIES[dataset$SPECIES == "Pterocarpus erinaceus"]
+pe_diameter <- dataset$DIAMETER[dataset$SPECIES == "Pterocarpus erinaceus"]
+pe_height <- dataset$HEIGHT[dataset$SPECIES == "Pterocarpus erinaceus"]
+p_erinaceus_table <- data.frame("Plot No"=pe_plot_no, "Species"=pe_species, "Diameter"=pe_diameter, "Height"=pe_height)
+
+# Parkia biglobosa Species Table
+pb2_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Parkia biglobosa"]
+pb2_species <- dataset$SPECIES[dataset$SPECIES == "Parkia biglobosa"]
+pb2_diameter <- dataset$DIAMETER[dataset$SPECIES == "Parkia biglobosa"]
+pb2_height <- dataset$HEIGHT[dataset$SPECIES == "Parkia biglobosa"]
+p_biglobosa_table <- data.frame("Plot No"=pb2_plot_no, "Species"=pb2_species, "Diameter"=pb2_diameter, "Height"=pb2_height)
+
+# Lannea schimperi Species Table
+ls_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Lannea schimperi"]
+ls_species <- dataset$SPECIES[dataset$SPECIES == "Lannea schimperi"]
+ls_diameter <- dataset$DIAMETER[dataset$SPECIES == "Lannea schimperi"]
+ls_height <- dataset$HEIGHT[dataset$SPECIES == "Lannea schimperi"]
+l_schimperi_table <- data.frame("Plot No"=ls_plot_no, "Species"=ls_species, "Diameter"=ls_diameter, "Height"=ls_height)
+
+# Sarcocephalus latifolius Species Table
+sl_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Sarcocephalus latifolius"]
+sl_species <- dataset$SPECIES[dataset$SPECIES == "Sarcocephalus latifolius"]
+sl_diameter <- dataset$DIAMETER[dataset$SPECIES == "Sarcocephalus latifolius"]
+sl_height <- dataset$HEIGHT[dataset$SPECIES == "Sarcocephalus latifolius"]
+s_latifolius_table <- data.frame("Plot No"=sl_plot_no, "Species"=sl_species, "Diameter"=sl_diameter, "Height"=sl_height)
+
+# Ficus sur Species Table
+fs_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Ficus sur"]
+fs_species <- dataset$SPECIES[dataset$SPECIES == "Ficus sur"]
+fs_diameter <- dataset$DIAMETER[dataset$SPECIES == "Ficus sur"]
+fs_height <- dataset$HEIGHT[dataset$SPECIES == "Ficus sur"]
+f_sur_table <- data.frame("Plot No"=fs_plot_no, "Species"=fs_species, "Diameter"=fs_diameter, "Height"=fs_height)
+
+
+#------------------------------ Frequency Distribution -----------------------------#
+
+# Species
+species_list <- c()
+for (variable in unique_species_dataset$Unique.Species) {
+  item <- species_list
+  species_list <- append(item, variable)
+}
+
+# Frequency
+species_frequency <- c()
+for (variable in unique_species_dataset$Unique.Species) {
+  item <- species_frequency
+  total <- length(dataset$SPECIES[dataset$SPECIES == variable])
+  species_frequency <- append(item, total)
+}
+
+# Frequency Table
+frequency_table <- data.frame(
+  "Species" = species_list,
+  "Frequency" = species_frequency
+)
+frequency_table <- rbind(frequency_table, "Total" = c("Total", sum(frequency_table$Frequency)))
+
+
+# Frequency Distribution Bar
+frequency_dist_bar <- data.frame(
+  "Species" = frequency_table$Species[frequency_table$Species != "Total"],
+  "Initials" = c("T.a", "G.a", "K", "K.s", "D.o", "V.d", "A.d", "M.i", "A.a", "P.e", "P.b", "L.s", "S.l", "F.s"),
+  "Frequency" = frequency_table$Frequency[frequency_table$Species != "Total"]
+  )
+
+ggplot(frequency_dist_bar, aes(x = Initials, y = Frequency)) +
+  geom_col(fill = "blue", color = "red") +
+  labs(title = "Species Frequency Distribution Bar", x = "Species", y = "Frequency")
+
+
+ggplot(frequency_dist_bar, aes(x = Initials, y = as.integer(Frequency))) +
+  geom_col(fill = "black", color = "purple") +
+  labs(title = "Species Frequency Distribution Bar", x = "Species", y = "Frequency")
+
+
+#------------------------------ Data Splicing -------------------------------#
+split <- sample.split(dataset, SplitRatio = 0.8)
+
+# Training or Fitting Data
+training <- subset(dataset, split==TRUE)
+summary(training)
+training_description <- describe(training)
+
+# Testing or Validation Data
+testing <- subset(dataset, split==FALSE)
+summary(testing)
+testing_description <- describe(testing)
+
+
+#-------------------------------- SVR Model ------------------------------#
+# SVR Model Fitting
+model_svr <-  svm(formula = HEIGHT ~ DIAMETER, data = training, type = "eps-regression")
+summary(model_svr)
+summary_model_svr <- summary(model_svr)
+
+# Making Predictions
+predictions_svr = predict(model_svr, testing)
+
+
+# ----------------------------- NLS Model----------------------------- #
+# Generating Parameters 
+nls_lm_parameters  <- lm(log10(HEIGHT) ~ log10(DIAMETER), data = training)
+summary_nls_lm_parameters <- summary(nls_lm_parameters)
+summary(nls_lm_parameters)
+
+# Intercept and Slope
+a_intercept <- nls_lm_parameters[["coefficients"]][["(Intercept)"]]
+b_slope <- nls_lm_parameters[["coefficients"]][["log10(DIAMETER)"]]
+
+# NLS Model Fitting
+model_nls <- nls(formula= HEIGHT ~ (1.3 + a*(DIAMETER^b)), data = training, start=list(a=exp(a_intercept), b=b_slope))
+summary_nls <- summary(model_nls)
+length_nls <- length(summary(model_nls)$coef[,1])
+# Making Predictions
+predictions_nls = predict(model_nls, testing)
+
+# Model Comparison Frame
+prediction_frame <- data.frame(
+  "Real Values"=testing$HEIGHT, 
+  "SVR_Predictions"=round(predictions_svr, 1),
+  "NLS_Predictions"=round(predictions_nls, 1)
+)
+
+# Summary Table
+summary_table <- data.frame()
+
+
+# ---------------------- Manual Predictions -------------------------------#
+predictor_variable <- data.frame(DIAMETER = 20.4)
+
+# SVR
+predict_svr <- predict(model_svr, predictor_variable)
+
+# NLS
+predict_nls <- predict(model_nls, predictor_variable)
+
+# Predict Table
+predict_table <- data.frame(
+  "DIAMETER" = predictor_variable$DIAMETER,
+  "HEIGHT" = 7.5,
+  "SVR_Predict" = round(predict_svr, 1), 
+  "NLS_Predict" = round(predict_nls, 1)
+)
+
+#----------------------------- Model Evaluation -----------------------------#
+
+# Root Mean Squared Errors
+RMSE_svr <- rmse(testing$HEIGHT, predictions_svr)
+RMSE_nls <- rmse(testing$HEIGHT, predictions_nls)
+RMSE <- c(round(RMSE_svr, 2), round(RMSE_nls, 2))
+summary_table <- data.frame(RMSE)
+
+# Calculate RSCORE
+RSQUARED_svr <- cor(testing$HEIGHT, predictions_svr) # Correlation Coefficient
+RSQUARED_nls <- cor(testing$HEIGHT, predictions_nls) # Correlation Coefficient
+RSQUARED <- c(round(RSQUARED_svr, 2), round(RSQUARED_nls, 2))
+summary_table <- cbind(summary_table, RSQUARED)
+
+# Mean Absolute Percent Error (MAPE)
+MAPE_svr <- mape(testing$HEIGHT, predictions_svr)
+MAPE_nls <- mape(testing$HEIGHT, predictions_nls)
+MAPE <- c(round(MAPE_svr, 4), round(MAPE_nls, 4))
+summary_table <- cbind(summary_table, MAPE)
+
+# BIAS
+bias_svr <- bias(testing$HEIGHT, predictions_svr)
+bias_nls <- bias(testing$HEIGHT, predictions_nls)
+BIAS <- c(round(bias_svr, 2), round(bias_nls, 2))
+summary_table <- cbind(summary_table, BIAS)
+
+# Mean Absolute Error (MAE)
+MAE_svr <- mae(testing$HEIGHT, predictions_svr)
+MAE_nls <- mae(testing$HEIGHT, predictions_nls)
+MAE <- c(round(MAE_svr, 2), round(MAE_nls, 2))
+summary_table <- cbind(summary_table, MAE)
+
+# Calculate AIC
+AIC_nls <- AIC(model_nls)
+AIC <- c("-", round(AIC_nls, 2))
+summary_table <- cbind(summary_table, AIC)
+
+
+# calculate BIC
+BIC_nls <- BIC(model_nls)
+BIC <- c("-", round(BIC_nls, 2))
+summary_table <- cbind(summary_table, BIC)
+
+# Accuracy
+accuracy_svr <- 100 - (mean(abs((testing$HEIGHT - predictions_svr)/testing$HEIGHT)) * 100)
+accuracy_nls <- 100 - (mean(abs((testing$HEIGHT - predictions_nls)/testing$HEIGHT)) * 100)
+Accuracy <- c(round(accuracy_svr, 1), round(accuracy_nls, 1))
+summary_table <- cbind(summary_table, "Accuracy(%)" = Accuracy)
+rownames(summary_table) <- c("SVR_Values", "NLS_Values")
+
+
+# Scattered Plot (Model Performance Line/Curve)
+ggplot() +
+  geom_point(aes(x = testing$DIAMETER, y = testing$HEIGHT, colour = "Points")) +
+  geom_line(aes(x = testing$DIAMETER, y = predictions_svr, colour = "SVR")) +
+  geom_line(aes(x = testing$DIAMETER, y = predictions_nls, colour = "NLS")) +
+  labs(x = "Diameter", y = "Height", title = "Tree Height - Diameter Model Line", color = "Legend") +
+  theme(legend.position = c(0.95, 0.10), legend.justification = c("right", "bottom")) +
+  scale_color_manual(values = c("Points"="red", "SVR"="blue", "NLS"="black")) 
+
+# Scattered Plot (Model Performance Line/Curve) -- SVR
+ggplot() +
+  geom_point(aes(x = testing$DIAMETER, y = testing$HEIGHT), colour = "red") +
+  geom_line(aes(x = testing$DIAMETER, y = predictions_svr), colour = "blue") +
+  labs(x = "Diameter", y = "Height", title = "Tree Height - Diameter Model Line (SVR)") 
+
+# Scattered Plot (Model Performance Line/Curve) -- NLS
+ggplot() +
+  geom_point(aes(x = testing$DIAMETER, y = testing$HEIGHT), colour = "red") +
+  geom_line(aes(x = testing$DIAMETER, y = predictions_nls), colour = "black") +
+  labs(x = "Diameter", y = "Height", title = "Tree Height - Diameter Model Line (NLS)") 
+
+
+# -------------------------------Export Tables---------------------------- #
+
+# Predict Table
+write.table(predict_table, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\predict_table.txt", sep = ",", quote = FALSE, row.names = FALSE)
+write.csv(predict_table, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\predict_table.csv", quote = FALSE, row.names = TRUE)
+
+# Training Table
+write.table(training, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\training_table.txt", sep = ",", quote = FALSE, row.names = FALSE)
+write.csv(training, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\training_table.csv", quote = FALSE, row.names = TRUE)
+
+# Testing Table
+write.table(testing, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\testing_table.txt", sep = ",", quote = FALSE, row.names = FALSE)
+write.csv(testing, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\testing_table.csv", quote = FALSE, row.names = TRUE)
+
+# Summary Table
+write.table(summary_table, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\summary_table.txt", sep = ",", quote = FALSE, row.names = FALSE)
+write.csv(summary_table, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\summary_table.csv", quote = FALSE, row.names = TRUE)
+
+# Prediction Table
+write.table(prediction_frame, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\prediction_table.txt", sep = ",", quote = FALSE, row.names = FALSE)
+write.csv(prediction_frame, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\prediction_table.csv", quote = FALSE, row.names = TRUE)
+
+# Frequency Table
+write.table(frequency_table, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\frequency_table.txt", sep = ",", quote = FALSE, row.names = FALSE)
+write.csv(frequency_table, file = "C:\\Benion\\Benion Programmings\\R\\Benion JOSTUM Project\\project-exported-tables\\frequency_table.csv", quote = FALSE, row.names = TRUE)
+
+
+# Unload Packages
+p_unload(all)
+
+# Clear plots
+dev.off()  # But only if there IS a plot
+
+# Clear console
+cat("\014")  # ctrl+L

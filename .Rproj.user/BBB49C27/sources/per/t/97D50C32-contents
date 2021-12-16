@@ -1,0 +1,212 @@
+# Load Libraries
+pacman::p_load(pacman, caTools, e1071, hydroGOF, ggplot2, psych)
+
+# Import data set
+dataset <-  read.csv("C:\\Benion\\Benion Programmings\\Python\\AI & ML\\data\\HDData.csv", head=TRUE, sep=",")
+head(dataset, n = 10)
+summary(dataset)
+description <- describe(dataset)
+
+# EXploratory Data Analysis
+ggplot() +
+  geom_point(aes(x = dataset$D, y = dataset$H), colour = "red") +
+  ggtitle("Tree Height vs Diameter") +
+  xlab("Diameter") +
+  ylab("Height")
+
+# Tectona grandis Species Table
+tg_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Tectona grandis"]
+tg_species <- dataset$SPECIES[dataset$SPECIES == "Tectona grandis"]
+tg_diameter <- dataset$D[dataset$SPECIES == "Tectona grandis"]
+tg_height <- dataset$H[dataset$SPECIES == "Tectona grandis"]
+t_grandis_table <- data.frame("Plot No"=tg_plot_no, "Species"=tg_species, "Diameter"=tg_diameter, "Height"=tg_height)
+
+# Kashier(Tiv) Species Table
+k_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Kashier(Tiv)"]
+k_species <- dataset$SPECIES[dataset$SPECIES == "Kashier(Tiv)"]
+k_diameter <- dataset$D[dataset$SPECIES == "Kashier(Tiv)"]
+k_height <- dataset$H[dataset$SPECIES == "Kashier(Tiv)"]
+kashier_table <- data.frame("Plot No"=k_plot_no, "Species"=k_species, "Diameter"=k_diameter, "Height"=k_height)
+
+# Daniella olivera Species Table
+do_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Daniella olivera"]
+do_species <- dataset$SPECIES[dataset$SPECIES == "Daniella olivera"]
+do_diameter <- dataset$D[dataset$SPECIES == "Daniella olivera"]
+do_height <- dataset$H[dataset$SPECIES == "Daniella olivera"]
+d_olivera_table <- data.frame("Plot No"=do_plot_no, "Species"=do_species, "Diameter"=do_diameter, "Height"=do_height)
+
+# Gmelina arborea Species Table
+ga_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Gmelina arborea"]
+ga_species <- dataset$SPECIES[dataset$SPECIES == "Gmelina arborea"]
+ga_diameter <- dataset$D[dataset$SPECIES == "Gmelina arborea"]
+ga_height <- dataset$H[dataset$SPECIES == "Gmelina arborea"]
+g_arborea_table <- data.frame("Plot No"=ga_plot_no, "Species"=ga_species, "Diameter"=ga_diameter, "Height"=ga_height)
+
+# Gmalina arborea Species Table
+ga2_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Gmalina arborea"]
+ga2_species <- dataset$SPECIES[dataset$SPECIES == "Gmalina arborea"]
+ga2_diameter <- dataset$D[dataset$SPECIES == "Gmalina arborea"]
+ga2_height <- dataset$H[dataset$SPECIES == "Gmalina arborea"]
+g_arborea_2_table <- data.frame("Plot No"=ga2_plot_no, "Species"=ga2_species, "Diameter"=ga2_diameter, "Height"=ga2_height)
+
+# Gmelina arboreag Species Table
+ga3_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Gmelina arboreag"]
+ga3_species <- dataset$SPECIES[dataset$SPECIES == "Gmelina arboreag"]
+ga3_diameter <- dataset$D[dataset$SPECIES == "Gmelina arboreag"]
+ga3_height <- dataset$H[dataset$SPECIES == "Gmelina arboreag"]
+g_arborea_3_table <- data.frame("Plot No"=ga3_plot_no, "Species"=ga3_species, "Diameter"=ga3_diameter, "Height"=ga3_height)
+
+# Gmelina aborea Species Table
+ga4_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Gmelina aborea"]
+ga4_species <- dataset$SPECIES[dataset$SPECIES == "Gmelina aborea"]
+ga4_diameter <- dataset$D[dataset$SPECIES == "Gmelina aborea"]
+ga4_height <- dataset$H[dataset$SPECIES == "Gmelina aborea"]
+g_arborea_4_table <- data.frame("Plot No"=ga4_plot_no, "Species"=ga4_species, "Diameter"=ga4_diameter, "Height"=ga4_height)
+
+# Khaya senegalensis Species Table
+ks_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Khaya senegalensis"]
+ks_species <- dataset$SPECIES[dataset$SPECIES == "Khaya senegalensis"]
+ks_diameter <- dataset$D[dataset$SPECIES == "Khaya senegalensis"]
+ks_height <- dataset$H[dataset$SPECIES == "Khaya senegalensis"]
+k_senegalensis_table <- data.frame("Plot No"=ks_plot_no, "Species"=ks_species, "Diameter"=ks_diameter, "Height"=ks_height)
+
+# Vitex doniana Species Table
+vd_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Vitex doniana"]
+vd_species <- dataset$SPECIES[dataset$SPECIES == "Vitex doniana"]
+vd_diameter <- dataset$D[dataset$SPECIES == "Vitex doniana"]
+vd_height <- dataset$H[dataset$SPECIES == "Vitex doniana"]
+V_doniana_table <- data.frame("Plot No"=vd_plot_no, "Species"=vd_species, "Diameter"=vd_diameter, "Height"=vd_height)
+
+# Anthocleista djalonensis Species Table
+ad_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Anthocleista djalonensis"]
+ad_species <- dataset$SPECIES[dataset$SPECIES == "Anthocleista djalonensis"]
+ad_diameter <- dataset$D[dataset$SPECIES == "Anthocleista djalonensis"]
+ad_height <- dataset$H[dataset$SPECIES == "Anthocleista djalonensis"]
+a_djalonensis_table <- data.frame("Plot No"=ad_plot_no, "Species"=ad_species, "Diameter"=ad_diameter, "Height"=ad_height)
+
+# Magifera indica Species Table
+mi_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Magifera indica"]
+mi_species <- dataset$SPECIES[dataset$SPECIES == "Magifera indica"]
+mi_diameter <- dataset$D[dataset$SPECIES == "Magifera indica"]
+mi_height <- dataset$H[dataset$SPECIES == "Magifera indica"]
+m_indica_table <- data.frame("Plot No"=mi_plot_no, "Species"=mi_species, "Diameter"=mi_diameter, "Height"=mi_height)
+
+# Afzelia africana Species Table
+aa_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Afzelia africana"]
+aa_species <- dataset$SPECIES[dataset$SPECIES == "Afzelia africana"]
+aa_diameter <- dataset$D[dataset$SPECIES == "Afzelia africana"]
+aa_height <- dataset$H[dataset$SPECIES == "Afzelia africana"]
+a_africana_table <- data.frame("Plot No"=aa_plot_no, "Species"=aa_species, "Diameter"=aa_diameter, "Height"=aa_height)
+
+# Ptericarpus erinaceous Species Table
+pe_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Ptericarpus erinaceous"]
+pe_species <- dataset$SPECIES[dataset$SPECIES == "Ptericarpus erinaceous"]
+pe_diameter <- dataset$D[dataset$SPECIES == "Ptericarpus erinaceous"]
+pe_height <- dataset$H[dataset$SPECIES == "Ptericarpus erinaceous"]
+p_erinaceous_table <- data.frame("Plot No"=pe_plot_no, "Species"=pe_species, "Diameter"=pe_diameter, "Height"=pe_height)
+
+# Ptericarpus erinaneceous Species Table
+pe2_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Ptericarpus erinaneceous"]
+pe2_species <- dataset$SPECIES[dataset$SPECIES == "Ptericarpus erinaneceous"]
+pe2_diameter <- dataset$D[dataset$SPECIES == "Ptericarpus erinaneceous"]
+pe2_height <- dataset$H[dataset$SPECIES == "Ptericarpus erinaneceous"]
+p_erinaneceous_table <- data.frame("Plot No"=pe2_plot_no, "Species"=pe2_species, "Diameter"=pe2_diameter, "Height"=pe2_height)
+
+# Iannea schimperiana Species Table
+is_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Iannea schimperiana"]
+is_species <- dataset$SPECIES[dataset$SPECIES == "Iannea schimperiana"]
+is_diameter <- dataset$D[dataset$SPECIES == "Iannea schimperiana"]
+is_height <- dataset$H[dataset$SPECIES == "Iannea schimperiana"]
+i_schimperiana_table <- data.frame("Plot No"=is_plot_no, "Species"=is_species, "Diameter"=is_diameter, "Height"=is_height)
+
+# Ficus sur Species Table
+fs_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Ficus sur"]
+fs_species <- dataset$SPECIES[dataset$SPECIES == "Ficus sur"]
+fs_diameter <- dataset$D[dataset$SPECIES == "Ficus sur"]
+fs_height <- dataset$H[dataset$SPECIES == "Ficus sur"]
+f_sur_table <- data.frame("Plot No"=fs_plot_no, "Species"=fs_species, "Diameter"=fs_diameter, "Height"=fs_height)
+
+# Saccoscphalus latifolia Species Table
+sl_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Saccoscphalus latifolia"]
+sl_species <- dataset$SPECIES[dataset$SPECIES == "Saccoscphalus latifolia"]
+sl_diameter <- dataset$D[dataset$SPECIES == "Saccoscphalus latifolia"]
+sl_height <- dataset$H[dataset$SPECIES == "Saccoscphalus latifolia"]
+s_latifolia_table <- data.frame("Plot No"=sl_plot_no, "Species"=sl_species, "Diameter"=sl_diameter, "Height"=sl_height)
+
+# Parkia biglobosia Species Table
+pb_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Parkia biglobosia"]
+pb_species <- dataset$SPECIES[dataset$SPECIES == "Parkia biglobosia"]
+pb_diameter <- dataset$D[dataset$SPECIES == "Parkia biglobosia"]
+pb_height <- dataset$H[dataset$SPECIES == "Parkia biglobosia"]
+p_biglobosia_table <- data.frame("Plot No"=pb_plot_no, "Species"=pb_species, "Diameter"=pb_diameter, "Height"=pb_height)
+
+# Parkia biglobosa Species Table
+pb2_plot_no <- dataset$PLOT.NO[dataset$SPECIES == "Parkia biglobosa"]
+pb2_species <- dataset$SPECIES[dataset$SPECIES == "Parkia biglobosa"]
+pb2_diameter <- dataset$D[dataset$SPECIES == "Parkia biglobosa"]
+pb2_height <- dataset$H[dataset$SPECIES == "Parkia biglobosa"]
+p_biglobosa_table <- data.frame("Plot No"=pb2_plot_no, "Species"=pb2_species, "Diameter"=pb2_diameter, "Height"=pb2_height)
+
+# Data Splicing
+split <- sample.split(dataset, SplitRatio = 0.8)
+training <- subset(dataset, split==TRUE)
+testing <- subset(dataset, split==FALSE)
+
+# Model Fitting
+model <-  svm(formula =H ~ D, data = training, type = "eps-regression")
+summary(model)
+
+# Linear Regression
+linear_model <- lm(formula = H ~ D, data = training)
+summary(linear_model)
+y_predict = predict(linear_model, testing)
+linear_RMSE=rmse(y_predict,testing$H)
+linear_summary = summary(linear_model)
+linear_model_r_squared = linear_summary[["r.squared"]]
+linear_model_adj_r_squared = linear_summary[["adj.r.squared"]]
+
+# Making Predictions
+predictions = predict(model, testing)
+
+#Calculate RMSE 
+RMSE=rmse(predictions,testing$H)
+
+# Calculate RSCORE
+RSQUARED = cor(testing$H, predictions)
+Accuracy = 100 - (mean(abs((testing$H - predictions)/testing$H)) * 100)
+
+# Table of Real Height vs Predicted Height
+data_frame <- data.frame("Real Height"=testing$H, "Predicted Height"=predictions)
+
+# EXploratory Data Analysis (Regression Line)
+# Scattered Plot
+ggplot() +
+  geom_point(aes(x = testing$D, y = testing$H), colour = "red") +
+  geom_line(aes(x = testing$D, y = predictions), colour = "blue")+
+  ggtitle("Tree Height-Diameter Relationship (Regression Line)") +
+  xlab("Diameter") +
+  ylab("Height")
+
+# Regression Line
+ggplot() +
+  geom_line(aes(x = testing$D, y = predictions), colour = "blue")+
+  ggtitle("Tree Height-Diameter Relationship (Regression Line Only)") +
+  xlab("Diameter") +
+  ylab("Height")
+
+# Histogram (Predicted Height)
+ggplot(data_frame, aes(x = predictions)) +
+  geom_histogram(bins = 30, colour = "green") +
+  labs(x = "", y = "Predicted Height")
+
+# Model Comparison Frame
+prediction_frame <- data.frame("Real Values"=testing$H, "SVR_Predictions"=predictions, "LinearModel_Predictions"=y_predict)
+
+# Unload Packages
+p_unload(all)
+
+# Clear plots
+dev.off()  # But only if there IS a plot
+
+# Clear console
+cat("\014")  # ctrl+L
