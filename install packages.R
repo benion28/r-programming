@@ -10,6 +10,26 @@ install.packages("rcompanion")
 install.packages("rsq")
 install.packages("blorr")
 install.packages("class")
+install.packages("anfis")
+install.packages("FuzzyR")
+install.packages("frbs")
+install.packages("Anfis-package")
+install.packages("maptools")
+install.packages("sp")
+install.packages("raster")
+install.packages("rgdal")
+install.packages("dismo")
+install.packages("rJava")
+install.packages("PresenceAbsence")
+install.packages("devtools")
+install.packages ("RColorBrewer")
+install.packages ("pander")
+
+devtools::install_git(
+  "https://gitup.uni-potsdam.de/macroecology/mecofun.git"
+)
+
+
 
 remotes::install_github("OnofrAndreaPG/aomisc")
 
