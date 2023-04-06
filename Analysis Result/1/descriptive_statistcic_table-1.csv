@@ -1,0 +1,6 @@
+,Training_Diameter,Testing_Diameter,All_Diameter,Training_Height,Testing_Height,All_Height
+Mean,10.33,10.2,10.3,11.77,11.87,11.8
+Minimum,4.6,4.9,4.6,4,3.3,3.3
+Maximum,41,24.5,41.1,38.3,23.8,38.3
+Standard_Deviation,5.64,4.76,5.42,4.91,4.13,5.42
+Obsersavations(n),223,76,299,223,76,299

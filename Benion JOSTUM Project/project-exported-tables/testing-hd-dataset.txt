@@ -1,10 +1,10 @@
 PLOT.NO,S.N,SPECIES,DIAMETER,HEIGHT
 P1,2,Gmelina arborea,34.7,16.3
 P1,7,Gmelina arborea,50.9,18.9
-P1,12,Kashier(Tiv),36,15
+P1,12,Senna siamea,36,15
 P1,17,Tectona grandis,20.8,7.8
 P1,22,Tectona grandis,24.7,11.6
-P2,27,Kashier(Tiv),15,9.7
+P2,27,Senna siamea,15,9.7
 P2,32,Tectona grandis,21,11
 P2,37,Gmelina arborea,23.6,13.5
 P3,42,Gmelina arborea,44.2,18.2
