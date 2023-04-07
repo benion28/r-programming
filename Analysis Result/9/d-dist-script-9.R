@@ -4,13 +4,10 @@
 pacman::p_load(pacman, ForestFit, ggplot2, lmfor, fitdistrplus, tidyverse, dplyr, psych)
 
 # Set Working Directory
-setwd("C://Benion//Benion Programmings//R//Analysis Result//3")
-
-# Clear List
-rm(list=ls())
+setwd("C://Benion//Benion Programmings//R//Analysis Result//9")
 
 # Import data set
-dataset <-  read.csv("full-data-2.csv", head=TRUE, sep=",")
+dataset <-  read.csv("full-data-4.csv", head=TRUE, sep=",")
 head(dataset, n = 10)
 summary(dataset)
 describe(dataset)
@@ -70,11 +67,12 @@ rownames(summary_statistics_table) <- c("Mean", "Standard Deviation", "Kurtosis"
 
 #------------------------------ Species Distribution --------------------------------#
 
+species_length <- length(frequency_table$Frequency)
 species_dist_table <- data.frame(
   "Species" = unique_species_dataset$Unique.Species,
-  "Frequency" = frequency_table$Frequency[1:30],
-  "N/HA" = (as.numeric(frequency_table$Frequency[1:30]) / (50 * 50)) * 100000,
-  "Proportion(%)" = round(((as.numeric(frequency_table$Frequency[1:30])/as.numeric(frequency_table$Frequency[31])) * 100), 1)
+  "Frequency" = frequency_table$Frequency[1:species_length - 1],
+  "N/HA" = (as.numeric(frequency_table$Frequency[1:species_length - 1]) / (50 * 50)) * 100000,
+  "Proportion(%)" = round(((as.numeric(frequency_table$Frequency[1:species_length - 1])/as.numeric(frequency_table$Frequency[species_length])) * 100), 1)
 )
 
 # Fit Distributions
@@ -220,6 +218,9 @@ ppcomp(list(dist_weibull, dist_gamma, dist_lognormal, dist_normal, dist_cauchy, 
 
 # Unload Packages
 p_unload(all)
+
+# Remove list from Global Environment
+rm(list=ls())
 
 # Clear plots
 dev.off()  # But only if there IS a plot

@@ -6,12 +6,12 @@ testing <- subset(dataset, split==FALSE)
 # Writing Training and Testing Data to File(.csv)
 write.csv(
   anderson_darling_table, 
-  file = "anderson_darling_table-3.csv", 
+  file = "anderson_darling_table.csv", 
   quote = FALSE, row.names = TRUE)
 
 write.table(
   anderson_darling_table, 
-  file = "anderson_darling_table-3.txt", 
+  file = "anderson_darling_table.txt", 
   sep = ",", quote = FALSE, row.names = FALSE)
 
 model_1 <- lm(formula =  CROWN.DIAMETER ~ (a  + b * (DIAMETER)), 
@@ -61,4 +61,38 @@ ggplot(df, aes(x = value, fill = group)) +
   geom_density(alpha = 0.5) +
   scale_fill_manual(values = c("#00BFC4", "#F8766D", "#C77CFF")) +
   theme_classic()
+
+start_values_chapman <- startHDrichards(training$DIAMETER, training$HEIGHT, bh=1.3)
+start_values_weibull <- startHDweibull(training$DIAMETER, training$HEIGHT, bh=1.3)
+
+
+# ----------------------------- Chapman-Richards ----------------------------- #
+# Chapman-Richards Model Fitting
+model_chapman <- nls(formula = HEIGHT ~ (1.3 + a * (1 - exp(-b * DIAMETER))^c), 
+                     data = training, start=list(
+                       a=start_values_chapman["a"], 
+                       b=start_values_chapman["b"], 
+                       c=start_values_chapman["c"]))
+summary_model_chapman <- summary(model_chapman)
+length_model_chapman <- length(summary(model_chapman)$coef[,1])
+model_chapman
+
+# Making Predictions
+predictions_chapman_training = predict(model_chapman, training)
+predictions_chapman_testing = predict(model_chapman, testing)
+
+
+# ----------------------------- Weibull ----------------------------- #
+# Weibull Model Fitting
+model_weibull <- nls(formula = HEIGHT ~ (1.3 + a * (1 - exp(-b * DIAMETER^c))), 
+                     data = training, start=list(a=start_values_weibull["a"], 
+                                                 b=start_values_weibull["b"], 
+                                                 c=start_values_weibull["c"]))
+summary_model_weibull <- summary(model_weibull)
+length_model_weibull <- length(summary(model_weibull)$coef[,1])
+model_weibull
+
+# Making Predictions
+predictions_weibull_training = predict(model_weibull, training)
+predictions_weibull_testing = predict(model_weibull, testing)
 

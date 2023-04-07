@@ -1,0 +1,37 @@
+Species,Frequency
+Parkia biglobosa,25
+Anogeissus leiocarpus,11
+Maranthes polyandra,1
+Scacia nilotica,2
+Ficus sur,4
+Zanthoxylus zanthoxyloides,3
+Vitex doniana,15
+Lannea schimperianna,5
+Daniella oliveri,25
+Khaya senegalensis,18
+Terminalia avicennoides,1
+Elaeis guineesis,29
+Afzelia africana,2
+Anacardium occidentale,1
+Kigelia africana,5
+Prosopis africana,9
+Gmelina aborea,1
+Sterculia setigera,5
+Acacia polyacanta,2
+Pterocarpus erinaceus,1
+Sarcocephalus latifolius,1
+Pseuplocedela kotshyi,1
+Melicia excelsa,1
+Crosopteryx febrifuga,2
+Ficus sycomorus,4
+Acacia nilotica,1
+Diospyros mespiliformis,1
+Ficus trichopoda,1
+Bukia africana,3
+Strychinof spinosa,1
+Stereosperimum kunthianum,1
+Magifera indica,1
+Ficus exaspirata,1
+Lophira lanceolata,1
+Vitellaria paradoxa,1
+Total,186
