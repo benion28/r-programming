@@ -20,7 +20,7 @@ summary(spp)
 spps <- as.data.frame(summary(spp))
 spps
 View(spps)
-#write.csv(spps,"C:/Documents/Species Diversity/cecisp.csv")
+#write.csv(spps,"cecisp.csv")
 
 names(data)
 FID <- spp<-as.factor(data$FID)
