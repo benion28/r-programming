@@ -1,0 +1,32 @@
+Species,Frequency,Trees.HA,Proportion...
+Anacadium occidentale,7,2.8,2.3
+Daniella oliveri,55,22,18.4
+Azadirachta indica,43,17.2,14.4
+Gmelina arborea,55,22,18.4
+Albizia zygia,10,4,3.3
+Crossopteryx febrifuga,5,2,1.7
+Syzygium guineenses,12,4.8,4
+Khaya senegalensis,1,0.4,0.3
+Lophira lanceolata,19,7.6,6.4
+Hannoa undulata,18,7.2,6
+Detarium microcarpum,17,6.8,5.7
+Terminalia avicennoides,1,0.4,0.3
+Burkea africana,8,3.2,2.7
+Terminalia schimperiana,1,0.4,0.3
+Parinari curitellifolia,5,2,1.7
+Vitellaria paradoxa,4,1.6,1.3
+Ptericarpus eriaceus,1,0.4,0.3
+Mangifera indica,8,3.2,2.7
+Elaeis guineensis,3,1.2,1
+Ficus sycomorus,3,1.2,1
+Combretum nigricans,1,0.4,0.3
+Terminalia mentalis,4,1.6,1.3
+Maranthes polyandra,2,0.8,0.7
+Kuassia undulata,5,2,1.7
+Scrychinos spinosa,2,0.8,0.7
+Trichilia emetica,3,1.2,1
+Pericopsis laxiflora,1,0.4,0.3
+Lannea schrimperiana,3,1.2,1
+Parkia biglobosa,1,0.4,0.3
+Anthocleista djalonensis,1,0.4,0.3
+Total,299,119.6,100

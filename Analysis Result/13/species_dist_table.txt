@@ -1,0 +1,37 @@
+Species,Frequency,Trees.HA,Proportion...
+Parkia biglobosa,25,9.1,13.4
+Anogeissus leiocarpus,11,4,5.9
+Maranthes polyandra,1,0.4,0.5
+Scacia nilotica,2,0.7,1.1
+Ficus sur,4,1.5,2.2
+Zanthoxylus zanthoxyloides,3,1.1,1.6
+Vitex doniana,15,5.5,8.1
+Lannea schimperianna,5,1.8,2.7
+Daniella oliveri,25,9.1,13.4
+Khaya senegalensis,18,6.5,9.7
+Terminalia avicennoides,1,0.4,0.5
+Elaeis guineesis,29,10.5,15.6
+Afzelia africana,2,0.7,1.1
+Anacardium occidentale,1,0.4,0.5
+Kigelia africana,5,1.8,2.7
+Prosopis africana,9,3.3,4.8
+Gmelina aborea,1,0.4,0.5
+Sterculia setigera,5,1.8,2.7
+Acacia polyacanta,2,0.7,1.1
+Pterocarpus erinaceus,1,0.4,0.5
+Sarcocephalus latifolius,1,0.4,0.5
+Pseuplocedela kotshyi,1,0.4,0.5
+Melicia excelsa,1,0.4,0.5
+Crosopteryx febrifuga,2,0.7,1.1
+Ficus sycomorus,4,1.5,2.2
+Acacia nilotica,1,0.4,0.5
+Diospyros mespiliformis,1,0.4,0.5
+Ficus trichopoda,1,0.4,0.5
+Bukia africana,3,1.1,1.6
+Strychinof spinosa,1,0.4,0.5
+Stereosperimum kunthianum,1,0.4,0.5
+Magifera indica,1,0.4,0.5
+Ficus exaspirata,1,0.4,0.5
+Lophira lanceolata,1,0.4,0.5
+Vitellaria paradoxa,1,0.4,0.5
+Total,186,67.6363636363636,100

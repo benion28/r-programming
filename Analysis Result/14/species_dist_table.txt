@@ -1,0 +1,37 @@
+Species,Frequency,Trees.HA,RF...,RD...,RDo...,IVI
+Parkia biglobosa,25,9.1,13.4,13.4,14.9,41.8
+Anogeissus leiocarpus,11,4,5.9,5.9,4.1,15.9
+Maranthes polyandra,1,0.4,0.5,0.5,0.4,1.5
+Scacia nilotica,2,0.7,1.1,1.1,3.3,5.4
+Ficus sur,4,1.5,2.2,2.2,0.8,5.1
+Zanthoxylus zanthoxyloides,3,1.1,1.6,1.6,1.4,4.6
+Vitex doniana,15,5.5,8.1,8.1,5.6,21.8
+Lannea schimperianna,5,1.8,2.7,2.7,2.4,7.8
+Daniella oliveri,25,9.1,13.4,13.4,16.4,43.3
+Khaya senegalensis,18,6.5,9.7,9.7,10.4,29.8
+Terminalia avicennoides,1,0.4,0.5,0.5,0.2,1.2
+Elaeis guineesis,29,10.5,15.6,15.6,21.5,52.6
+Afzelia africana,2,0.7,1.1,1.1,0.9,3.1
+Anacardium occidentale,1,0.4,0.5,0.5,0.8,1.9
+Kigelia africana,5,1.8,2.7,2.7,2,7.3
+Prosopis africana,9,3.3,4.8,4.8,6.9,16.5
+Gmelina aborea,1,0.4,0.5,0.5,0.2,1.3
+Sterculia setigera,5,1.8,2.7,2.7,1.9,7.3
+Acacia polyacanta,2,0.7,1.1,1.1,0.8,2.9
+Pterocarpus erinaceus,1,0.4,0.5,0.5,0.2,1.2
+Sarcocephalus latifolius,1,0.4,0.5,0.5,0.1,1.2
+Pseuplocedela kotshyi,1,0.4,0.5,0.5,0.1,1.2
+Melicia excelsa,1,0.4,0.5,0.5,0.2,1.3
+Crosopteryx febrifuga,2,0.7,1.1,1.1,0.3,2.5
+Ficus sycomorus,4,1.5,2.2,2.2,1,5.3
+Acacia nilotica,1,0.4,0.5,0.5,0.3,1.4
+Diospyros mespiliformis,1,0.4,0.5,0.5,0.1,1.2
+Ficus trichopoda,1,0.4,0.5,0.5,0.6,1.7
+Bukia africana,3,1.1,1.6,1.6,1.1,4.3
+Strychinof spinosa,1,0.4,0.5,0.5,0.2,1.2
+Stereosperimum kunthianum,1,0.4,0.5,0.5,0.1,1.1
+Magifera indica,1,0.4,0.5,0.5,0.2,1.3
+Ficus exaspirata,1,0.4,0.5,0.5,0.2,1.3
+Lophira lanceolata,1,0.4,0.5,0.5,0.2,1.3
+Vitellaria paradoxa,1,0.4,0.5,0.5,0.3,1.3
+Total,186,67.6363636363636,100,100,100,300

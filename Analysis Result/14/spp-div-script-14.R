@@ -24,6 +24,33 @@ for (variable in unique_species_dataset$Unique.Species) {
   species_list <- append(item, variable)
 }
 
+
+# Basal area
+m_cm <- 100
+basal_area <- (pi*((dataset$DIAMETER/m_cm)^2))/4
+dataset <- cbind(dataset, "BA" = basal_area)
+data_description <- describe(dataset)
+
+
+#------------------------------ Summary Statistic --------------------------------#
+# Summary Statistic Table
+summary_statistics_table <- data.frame(
+  "DBH" = c(round(mean(dataset$DIAMETER), 1), round(sd(dataset$DIAMETER), 1),
+            round(min(dataset$DIAMETER), 1), round(max(dataset$DIAMETER), 1),
+            length(dataset$DIAMETER)),
+  "THT" = c(round(mean(dataset$HEIGHT), 1), round(sd(dataset$HEIGHT), 1),
+            round(min(dataset$HEIGHT), 1), round(max(dataset$HEIGHT), 1),
+            length(dataset$HEIGHT)),
+  "CD" = c(round(mean(dataset$CROWN.DIAMETER), 1), round(sd(dataset$CROWN.DIAMETER), 1),
+           round(min(dataset$CROWN.DIAMETER), 1), round(max(dataset$CROWN.DIAMETER), 1),
+           length(dataset$CROWN.DIAMETER)),
+  "BA" = c(round(mean(dataset$BA), 3), round(sd(dataset$BA), 3),
+           round(min(dataset$BA), 3), round(max(dataset$BA), 3),
+           length(dataset$BA))
+)
+rownames(summary_statistics_table) <- c("Mean", "Standard Deviation", "Minimum",
+                                        "Maximum", "Sample Size")
+
 # Frequency
 species_frequency <- c()
 species_basal_area <- c()
@@ -45,19 +72,12 @@ frequency_table <- data.frame(
 frequency_table <- rbind(frequency_table, "Total" = c("Total", sum(frequency_table$Frequency), sum(frequency_table$BA)))
 
 
-# Basal area
-m_cm <- 100
-basal_area <- (pi*((dataset$DIAMETER/m_cm)^2))/4
-dataset <- cbind(dataset, "BA" = basal_area)
-data_description <- describe(dataset)
-
-
 #------------------------------ Number of Trees per Hectar --------------------------------#
 one_ha_m2 <- 10000
 area_of_plot_m2 <- 50 * 50
 area_of_plot_ha <- area_of_plot_m2 / one_ha_m2
-number_of_plots <- 10
-expansion_factor <- 10000 / (area_of_plot_m2 * number_of_plots)
+number_of_plots <- 11
+expansion_factor <- one_ha_m2 / (area_of_plot_m2 * number_of_plots)
 
 
 #------------------------------ Species Distribution --------------------------------#
@@ -113,11 +133,18 @@ IVI_forest <- importancevalue.comp(dataset, site="PLOT", species="SPECIES",count
 # Table
 IVI_forest_table <- data.frame(IVI_forest$FOR)
 # Summary
-IVI_forest_table <- cbind(IVI_forest_table, "RF" = round(IVI_forest_table$frequency.percent, 1))
-IVI_forest_table <- cbind(IVI_forest_table, "RD" = round(IVI_forest_table$density.percent, 1))
-IVI_forest_table <- cbind(IVI_forest_table, "RDo" = round(IVI_forest_table$dominance.percent, 1))
-IVI_forest_table <- cbind(IVI_forest_table, "IVI" = round(IVI_forest_table$importance.value, 1))
+comp_RF <- IVI_forest_table$frequency.percent
+comp_RD <- IVI_forest_table$density.percent
+comp_RDo <- IVI_forest_table$dominance.percent
+comp_IVI <- IVI_forest_table$importance.value
+IVI_forest_table <- cbind(IVI_forest_table, "RF" = round(comp_RF, 1))
+IVI_forest_table <- cbind(IVI_forest_table, "RD" = round(comp_RD, 1))
+IVI_forest_table <- cbind(IVI_forest_table, "RDo" = round(comp_RDo, 1))
+IVI_forest_table <- cbind(IVI_forest_table, "IVI" = round(comp_IVI, 1))
 IVI_forest_summary_table <- IVI_forest_table %>% select(RF, RD, RDo, IVI)
+IVI_forest_summary_table <- rbind(IVI_forest_summary_table, "Total" = c(
+  sum(comp_RF), sum(comp_RD), sum(comp_RDo), sum(comp_IVI)
+))
 
 # Diameter Classes
 class_1_5_dbh <- dataset %>% filter(DIAMETER > 1 & DIAMETER <= 5)

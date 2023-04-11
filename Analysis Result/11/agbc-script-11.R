@@ -195,11 +195,11 @@ class_20_25_cd_density <- length(class_20_25_cd$CROWN.DIAMETER)
 class_25_cd_density <- length(class_25_cd$CROWN.DIAMETER)
 
 summary_variable_classes_table <- data.frame(
-  "DBH.density" = c(class_1_5_dbh_density, class_5_10_dbh_density, class_10_15_dbh_density, class__15_20_dbh_density, class_20_25_dbh_density, class_25_dbh_density),
+  "DBH.density" = c(class_1_5_dbh_density, class_5_10_dbh_density, class_10_15_dbh_density, class_15_20_dbh_density, class_20_25_dbh_density, class_25_dbh_density),
   "DBH.trees.ha" = c((class_1_5_dbh_density/density), (class_5_10_dbh_density/density), (class_10_15_dbh_density/density), (class_15_20_dbh_density/density), (class_20_25_dbh_density/density), (class_25_dbh_density/density)),
   "THT.density" = c(class_1_5_tht_density, class_5_10_tht_density, class_10_15_tht_density, class_15_20_tht_density, class_20_25_tht_density, class_25_tht_density),
   "THT.trees.ha" = c((class_1_5_tht_density/density), (class_5_10_tht_density/density), (class_10_15_tht_density/density), (class_15_20_tht_density/density), (class_20_25_tht_density/density), (class_25_tht_density/density)),
-  "CD.density" = c(class_1_5_cd_density, class_5_10_cd_density, class_10_15_cd_density, class__15_20_cd_density, class_20_25_cd_density, class_25_cd_density),
+  "CD.density" = c(class_1_5_cd_density, class_5_10_cd_density, class_10_15_cd_density, class_15_20_cd_density, class_20_25_cd_density, class_25_cd_density),
   "CD.trees.ha" = c((class_1_5_cd_density/density), (class_5_10_cd_density/density), (class_10_15_cd_density/density), (class_15_20_cd_density/density), (class_20_25_cd_density/density), (class_25_cd_density/density))
 )
 summary_variable_classes_table <- rbind(summary_variable_classes_table, 

@@ -5,13 +5,13 @@ testing <- subset(dataset, split==FALSE)
 
 # Writing Training and Testing Data to File(.csv)
 write.csv(
-  anderson_darling_table, 
-  file = "anderson_darling_table.csv", 
+  levene_no_leaves, 
+  file = "levene_no_leaves.csv", 
   quote = FALSE, row.names = TRUE)
 
 write.table(
-  anderson_darling_table, 
-  file = "anderson_darling_table.txt", 
+  levene_no_leaves, 
+  file = "levene_no_leaves.txt", 
   sep = ",", quote = FALSE, row.names = FALSE)
 
 model_1 <- lm(formula =  CROWN.DIAMETER ~ (a  + b * (DIAMETER)), 
