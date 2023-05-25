@@ -1,0 +1,3 @@
+Species,Frequency,Trees.HA,Proportion...
+Tectona grandis,132,88,100
+Total,132,88,100

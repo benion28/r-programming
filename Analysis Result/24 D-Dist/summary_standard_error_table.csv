@@ -1,0 +1,8 @@
+,Shape,Scale,Location,Rate
+Weibull,0.262,0.197,-,-
+Gamma,1.88,-,-,0.231
+Lognormal,-,0.017,0.024,-
+Normal,-,0.123,0.174,-
+Cauchy,-,0.123,0.17,-
+Exponential,-,-,-,0.011
+Logistics,-,0.079,0.163,-

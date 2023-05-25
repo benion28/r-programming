@@ -1,0 +1,12 @@
+Species,Frequency,Trees.HA,Proportion...
+Khaya senegalensis,35,14,46.1
+Daniella oliveri,18,7.2,23.7
+Azdirachta indica,5,2,6.6
+Vitex donina,4,1.6,5.3
+Combretum nigricans,2,0.8,2.6
+Albizia zygia,4,1.6,5.3
+Eucalyptus calmadalutases,2,0.8,2.6
+Ficus sycomorus,2,0.8,2.6
+Stereospermum kunthianum,2,0.8,2.6
+Senna siamea,2,0.8,2.6
+Total,76,30.4,100

@@ -1,0 +1,13 @@
+Species,Frequency,Trees.HA,Proportion...
+Crossopteryx febrifuga,3,1.2,8.6
+Prosopis africana,2,0.8,5.7
+Pterocarpus erinaceus,7,2.8,20
+Vitex donina,5,2,14.3
+Lannea schimperiana,2,0.8,5.7
+Khaya senegalensis,5,2,14.3
+Terminalia avicennioides,3,1.2,8.6
+Daniella oliveri,3,1.2,8.6
+Kegelia africana,2,0.8,5.7
+Pseudocedrala koschyi,2,0.8,5.7
+Acacia polycatha,1,0.4,2.9
+Total,35,14,100

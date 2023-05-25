@@ -1,0 +1,6 @@
+,Training_Diameter,Testing_Diameter,All_Diameter,Training_Crown_Diameter,Testing_Crown_Diameter,All_Crown_Diameter
+Mean,8.03,9.06,8.23,7.88,8.76,8.06
+Minimum,2.2,2.07,2.07,4.75,5.2,4.75
+Maximum,25,25.05,25.14,13.95,15.35,15.35
+Standard_Deviation,3.8,7.37,4.6,1.76,3.4,2.15
+Obsersavations(n),28,7,35,28,7,35

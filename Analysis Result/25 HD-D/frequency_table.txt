@@ -1,0 +1,3 @@
+Species,Frequency
+Tectona grandis,132
+Total,132
