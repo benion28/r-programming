@@ -1,0 +1,16 @@
+Species,Initials,Frequency,Trees.HA,Proportion...
+Tectona grandis,T.g,46,8.8,7.8
+Gmelina arborea,G.a,390,74.3,66.1
+Senna siamea,S.s,18,3.4,3.1
+Khaya senegalensis,K.s,19,3.6,3.2
+Daniella olivera,D.o,58,11,9.8
+Vitex doniana,V.d,10,1.9,1.7
+Anthocleista djalonensis,A.d,17,3.2,2.9
+Mangifera indica,M.i,1,0.2,0.2
+Afzelia africana,A.a,8,1.5,1.4
+Pterocarpus erinaceus,P.e,9,1.7,1.5
+Parkia biglobosa,P.b,2,0.4,0.3
+Lannea schimperi,L.s,9,1.7,1.5
+Sarcocephalus latifolius,S.l,2,0.4,0.3
+Ficus sur,F.s,1,0.2,0.2
+Total, ,590,112.380952380952,100

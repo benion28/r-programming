@@ -1,0 +1,30 @@
+Species,Frequency,Trees.HA,Proportion...
+Daniella oliveri,24,12,28.9
+Prosopis africana,5,2.5,6
+Sterculia setigera,2,1,2.4
+Lannea schrimperiana,4,2,4.8
+Detarium microcapum,1,0.5,1.2
+Parkia biglobosa,11,5.5,13.3
+Acacia nilotica,2,1,2.4
+Ficus spp,1,0.5,1.2
+Vitex doniana   ,3,1.5,3.6
+Elaeis guineensis,3,1.5,3.6
+Ficus asperifilia,1,0.5,1.2
+Vitex doniana,6,3,7.2
+Vitellaria paradoxa,1,0.5,1.2
+Syzygium guineense,1,0.5,1.2
+Ficus sycomorus,1,0.5,1.2
+Khaya senegalensis,5,2.5,6
+Milicia excelsa,1,0.5,1.2
+Anogeissus leiocarpus,1,0.5,1.2
+Pterocarpus samtelinoides,1,0.5,1.2
+Terminalia avicennoides,1,0.5,1.2
+Acacia polyacanta,1,0.5,1.2
+Kigelia Africana,1,0.5,1.2
+Pericopsis laxiflore,1,0.5,1.2
+Burkia africana,1,0.5,1.2
+Crossopteryx febrifuga,1,0.5,1.2
+Combretun nigricans,1,0.5,1.2
+Terminaalia schimperiana,1,0.5,1.2
+Pseudocedrata koschyi,1,0.5,1.2
+Total,83,41.5,100

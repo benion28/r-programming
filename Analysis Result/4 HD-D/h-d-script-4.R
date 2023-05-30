@@ -233,7 +233,7 @@ predictor_variable <- data.frame(DIAMETER = 20.4)
 # Power
 predict_power <- predict(model_power, predictor_variable)
 
-# gomperz
+# Gomperz
 predict_gomperz <- predict(model_gomperz, predictor_variable)
 
 # Logistics

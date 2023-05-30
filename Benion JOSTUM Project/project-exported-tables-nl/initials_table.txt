@@ -1,0 +1,15 @@
+Species,Initials,Frequency
+Tectona grandis,T.g,46
+Gmelina arborea,G.a,390
+Senna siamea,S.s,18
+Khaya senegalensis,K.s,19
+Daniella olivera,D.o,58
+Vitex doniana,V.d,10
+Anthocleista djalonensis,A.d,17
+Mangifera indica,M.i,1
+Afzelia africana,A.a,8
+Pterocarpus erinaceus,P.e,9
+Parkia biglobosa,P.b,2
+Lannea schimperi,L.s,9
+Sarcocephalus latifolius,S.l,2
+Ficus sur,F.s,1
