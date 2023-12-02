@@ -1,0 +1,3 @@
+Species,Frequency
+Azadirachta indica,39
+Total,39

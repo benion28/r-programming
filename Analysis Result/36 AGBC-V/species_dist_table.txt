@@ -1,0 +1,14 @@
+Species,Frequency,Trees.HA,Proportion...
+Gmelina arborea,64,106.7,77.1
+Pterocarpus santalinoides,3,5,3.6
+Vitellaria paradoxa,2,3.3,2.4
+Ficus sur,1,1.7,1.2
+Anthocleista djalonensis,3,5,3.6
+Vitex doniana,3,5,3.6
+Ficus exasperata,1,1.7,1.2
+Prosopis africana,1,1.7,1.2
+Ficus sycomorus,1,1.7,1.2
+Albizia zygia,2,3.3,2.4
+Crossopteryx febrifuga,1,1.7,1.2
+Khaya senegalensis,1,1.7,1.2
+Total,83,138.333333333333,100

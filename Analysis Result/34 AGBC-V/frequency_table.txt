@@ -1,0 +1,11 @@
+Species,Frequency,Wood.Density
+Khaya senegalensis,105,0.648
+Gmelina arborea,1,0.425
+Sena siameao,1,0.57
+Detonixo regia,2,0.5
+Eucalyptus camadolensis,1,0.73
+Daniella oliveri,2,0.533
+Azadirachta indica,39,0.57
+Anthocleista djalonensis,1,0.532
+Abezia zygia,1,0.804
+Total,153,-

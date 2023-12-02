@@ -1,0 +1,14 @@
+Species,Frequency,Wood.Density
+Gmelina arborea,64,0.425
+Pterocarpus santalinoides,3,0.7
+Vitellaria paradoxa,2,0.57
+Ficus sur,1,0.412
+Anthocleista djalonensis,3,0.532
+Vitex doniana,3,0.4
+Ficus exasperata,1,0.293
+Prosopis africana,1,0.878
+Ficus sycomorus,1,0.413
+Albizia zygia,2,0.804
+Crossopteryx febrifuga,1,0.5
+Khaya senegalensis,1,0.648
+Total,83,-

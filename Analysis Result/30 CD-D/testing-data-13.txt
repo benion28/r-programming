@@ -1,0 +1,27 @@
+S.NO,PLOT.NO,SPECIES,PLOT,DIAMETER,HEIGHT,CROWN.DIAMETER,WOOD.DENSITY
+8,8,Khaya senegalensis,P1,18.1,25,24.7,0.648
+10,10,Khaya senegalensis,P1,19.4,21.9,17.3,0.648
+16,16,Khaya senegalensis,P1,15.3,17.2,12.9,0.648
+18,18,Khaya senegalensis,P1,17.3,14,12.95,0.648
+24,2,Khaya senegalensis,P2,13.6,14.6,8.5,0.648
+26,4,Khaya senegalensis,P2,15.4,17,13.85,0.648
+32,10,Khaya senegalensis,P2,17,18.7,9.15,0.648
+34,12,Khaya senegalensis,P2,10.6,13.6,6.7,0.648
+40,18,Khaya senegalensis,P2,12.1,12,8.5,0.648
+42,20,Khaya senegalensis,P2,10.7,15.1,7.15,0.648
+48,2,Khaya senegalensis,P3,12.5,17,9.85,0.648
+50,4,Khaya senegalensis,P3,17,13.1,11.15,0.648
+56,10,Khaya senegalensis,P3,10.8,14.2,8.1,0.648
+58,12,Khaya senegalensis,P3,26.9,29,24.25,0.648
+64,18,Khaya senegalensis,P3,8.2,10.5,6.5,0.648
+66,20,Khaya senegalensis,P3,18.5,19.4,22.1,0.648
+72,2,Khaya senegalensis,P4,14.8,17,10.2,0.648
+74,4,Khaya senegalensis,P4,17.8,17.3,19.6,0.648
+81,11,Khaya senegalensis,P4,20.5,26,19.32,0.648
+83,13,Khaya senegalensis,P4,13.5,16.4,9.3,0.648
+89,19,Khaya senegalensis,P4,12.3,16.1,8,0.648
+91,21,Khaya senegalensis,P4,17.8,20,19.6,0.648
+97,5,Khaya senegalensis,P5,8.1,9,11.65,0.648
+99,7,Khaya senegalensis,P5,9.8,12.2,5.95,0.648
+106,14,Khaya senegalensis,P5,14,20.1,10.05,0.648
+108,16,Khaya senegalensis,P5,10.7,9.3,7.05,0.648

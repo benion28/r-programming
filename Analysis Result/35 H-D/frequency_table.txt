@@ -1,0 +1,14 @@
+Species,Frequency
+Gmelina arborea,64
+Pterocarpus santalinoides,3
+Vitellaria paradoxa,2
+Ficus sur,1
+Anthocleista djalonensis,3
+Vitex doniana,3
+Ficus exasperata,1
+Prosopis africana,1
+Ficus sycomorus,1
+Albizia zygia,2
+Crossopteryx febrifuga,1
+Khaya senegalensis,1
+Total,83

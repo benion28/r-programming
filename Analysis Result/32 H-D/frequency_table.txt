@@ -1,0 +1,3 @@
+Species,Frequency
+Khaya senegalensis,105
+Total,105
