@@ -5,8 +5,8 @@ testing <- subset(dataset, split==FALSE)
 
 # Writing Training and Testing Data to File(.csv)
 write.csv(
-  summary_variable_classes_table, 
-  file = "summary_variable_classes_table.csv", 
+  score_subject_table, 
+  file = "score_subject_table.csv", 
   quote = FALSE, row.names = TRUE)
 
 write.table(
@@ -14,8 +14,10 @@ write.table(
   file = "summary_variable_classes_table.txt", 
   sep = ",", quote = FALSE, row.names = FALSE)
 
-install.packages(c("", ""))
+install.packages(c("betareg", "DirichletReg"))
 install.packages("")
+
+
 
 model_1 <- lm(formula =  CROWN.DIAMETER ~ (a  + b * (DIAMETER)), 
               data = training,
@@ -284,3 +286,8 @@ lines(d,HDnaslund(d,a=theta[1],b=theta[2]),col="red",lwd=5)
 # Model 5 --- (1.3 + (exp(a + (b/(DIAMETER + c)))))
 # Model 6 --- (exp(a + (b * (log(DIAMETER)))))
 # Model 7 --- (1.3 + (DIAMETER/(a + (b * DIAMETER)))^c)
+
+
+https://doi.org/10.1093/forestscience/39.3.594
+https://doi.org/10.1139/x92-172
+

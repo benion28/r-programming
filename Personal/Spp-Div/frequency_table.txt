@@ -1,0 +1,32 @@
+Species,Frequency,BA
+Anacadium occidentale,7,0.248448142620168
+Daniella oliveri,55,0.723633666429709
+Azadirachta indica,43,0.450864098883612
+Gmelina arborea,55,0.444560493224184
+Albizia zygia,10,0.0420792774003451
+Crossopteryx febrifuga,5,0.0399681271371327
+Syzygium guineenses,12,0.133132842677501
+Khaya senegalensis,1,0.122541748444087
+Lophira lanceolata,19,0.070914385571319
+Hannoa undulata,18,0.127614635181471
+Detarium microcarpum,17,0.113406782405611
+Terminalia avicennoides,1,0.00395919214168654
+Burkea africana,8,0.0330252073726993
+Terminalia schimperiana,1,0.00502654824574367
+Parinari curitellifolia,5,0.0286269776576736
+Vitellaria paradoxa,4,0.0304247540536904
+Ptericarpus eriaceus,1,0.0336535259034173
+Mangifera indica,8,0.340063267584154
+Elaeis guineensis,3,0.0421609588093384
+Ficus sycomorus,3,0.0280025861177726
+Combretum nigricans,1,0.006647610054996
+Terminalia mentalis,4,0.0234598431406818
+Maranthes polyandra,2,0.00804954577666045
+Kuassia undulata,5,0.0449491222893994
+Scrychinos spinosa,2,0.00770082899211198
+Trichilia emetica,3,0.00857811874062693
+Pericopsis laxiflora,1,0.00229022104446696
+Lannea schrimperiana,3,0.00883180234740431
+Parkia biglobosa,1,0.00441786466911065
+Anthocleista djalonensis,1,0.00282743338823081
+Total,299,3.17985960830501
