@@ -5,12 +5,12 @@ testing <- subset(dataset, split==FALSE)
 
 # Writing Training and Testing Data to File(.csv)
 write.csv(
-  score_subject_table, 
-  file = "score_subject_table.csv", 
+  summary_anova_no_leaves, 
+  file = "summary_anova_no_leaves.csv", 
   quote = FALSE, row.names = TRUE)
 
 write.table(
-  summary_variable_classes_table, 
+  summary_statistic, 
   file = "summary_variable_classes_table.txt", 
   sep = ",", quote = FALSE, row.names = FALSE)
 
