@@ -1,0 +1,7 @@
+SPECIES,Frequency
+Khaya senegalensis,76
+Daniellia oliveri,31
+Albizia zygia,18
+Eucalyptus camaldulensis,1
+Parkia biglobosa,1
+Total,127

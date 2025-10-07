@@ -1,0 +1,6 @@
+SPECIES,Frequency,N/HA,Proportion(%)
+Khaya senegalensis,76,304,59.8
+Daniellia oliveri,31,124,24.4
+Albizia zygia,18,72,14.2
+Eucalyptus camaldulensis,1,4,0.8
+Parkia biglobosa,1,4,0.8
