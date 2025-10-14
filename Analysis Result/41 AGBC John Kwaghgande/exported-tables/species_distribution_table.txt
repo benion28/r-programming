@@ -1,0 +1,7 @@
+SPECIES,Frequency,Trees.HA,Proportion...
+1,Khaya senegalensis,76,50.7,59.8
+2,Daniellia oliveri,31,20.7,24.4
+3,Albizia zygia,18,12,14.2
+4,Eucalyptus camaldulensis,1,0.7,0.8
+5,Parkia biglobosa,1,0.7,0.8
+6,Total,127,84.8,100
