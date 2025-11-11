@@ -175,40 +175,55 @@ class_15_20_cd<- dataset %>% filter(CROWN.DIAMETER > 15 & CROWN.DIAMETER <= 20)
 class_20_25_cd<- dataset %>% filter(CROWN.DIAMETER > 20 & CROWN.DIAMETER <= 25)
 class_25_cd   <- dataset %>% filter(CROWN.DIAMETER > 25)
 
-# ----------------------- Summary AG class table ---------------------------
+# --------------------------- Summary AGB & AGC by DBH Classes --------------------------- #
+
 summary_ag_classes_table <- data.frame(
+  "DBH" = c(
+    length(class_1_10_dbh$DIAMETER),
+    length(class_10_20_dbh$DIAMETER),
+    length(class_20_30_dbh$DIAMETER),
+    length(class_30_40_dbh$DIAMETER),
+    length(class_40_50_dbh$DIAMETER),
+    length(class_50_dbh$DIAMETER)
+  ),
   "Trees.ha" = c(
-    (nrow(class_1_10_dbh) * expansion_factor),
-    (nrow(class_10_20_dbh) * expansion_factor),
-    (nrow(class_20_30_dbh) * expansion_factor),
-    (nrow(class_30_40_dbh) * expansion_factor),
-    (nrow(class_40_50_dbh) * expansion_factor),
-    (nrow(class_50_dbh) * expansion_factor)
+    nrow(class_1_10_dbh) * expansion_factor,
+    nrow(class_10_20_dbh) * expansion_factor,
+    nrow(class_20_30_dbh) * expansion_factor,
+    nrow(class_30_40_dbh) * expansion_factor,
+    nrow(class_40_50_dbh) * expansion_factor,
+    nrow(class_50_dbh) * expansion_factor
   ),
   "AGB.tons.ha" = c(
-    round((sum(class_1_10_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor), 1),
-    round((sum(class_10_20_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor), 1),
-    round((sum(class_20_30_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor), 1),
-    round((sum(class_30_40_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor), 1),
-    round((sum(class_40_50_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor), 1),
-    round((sum(class_50_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor), 1)
+    round(sum(class_1_10_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor, 1),
+    round(sum(class_10_20_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor, 1),
+    round(sum(class_20_30_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor, 1),
+    round(sum(class_30_40_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor, 1),
+    round(sum(class_40_50_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor, 1),
+    round(sum(class_50_dbh$AGB.tons.ha, na.rm = TRUE) * expansion_factor, 1)
   ),
   "AGC.tons.ha" = c(
-    round((sum(class_1_10_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor), 1),
-    round((sum(class_10_20_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor), 1),
-    round((sum(class_20_30_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor), 1),
-    round((sum(class_30_40_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor), 1),
-    round((sum(class_40_50_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor), 1),
-    round((sum(class_50_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor), 1)
+    round(sum(class_1_10_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor, 1),
+    round(sum(class_10_20_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor, 1),
+    round(sum(class_20_30_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor, 1),
+    round(sum(class_30_40_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor, 1),
+    round(sum(class_40_50_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor, 1),
+    round(sum(class_50_dbh$AGC.tons.ha, na.rm = TRUE) * expansion_factor, 1)
   )
 )
 
-# add totals row
-summary_ag_classes_table <- rbind(summary_ag_classes_table,
-                                  c(sum(summary_ag_classes_table$Trees.ha, na.rm = TRUE),
-                                    sum(summary_ag_classes_table$AGB.tons.ha, na.rm = TRUE),
-                                    sum(summary_ag_classes_table$AGC.tons.ha, na.rm = TRUE)))
-rownames(summary_ag_classes_table) <- c("1 - 10", "10 - 20", "20 - 30", "30 - 40", "40 - 50", "50>", "Total")
+# --------------------------- Add Totals Row --------------------------- #
+total_row <- data.frame(
+  DBH = sum(summary_ag_classes_table$DBH, na.rm = TRUE),  # total stems
+  Trees.ha = sum(summary_ag_classes_table$Trees.ha, na.rm = TRUE),
+  AGB.tons.ha = sum(summary_ag_classes_table$AGB.tons.ha, na.rm = TRUE),
+  AGC.tons.ha = sum(summary_ag_classes_table$AGC.tons.ha, na.rm = TRUE)
+)
+
+summary_ag_classes_table <- rbind(summary_ag_classes_table, total_row)
+
+# Label rows
+rownames(summary_ag_classes_table) <- c("1 - 10", "10 - 20", "20 - 30", "30 - 40", "40 - 50", "50 >", "Total")
 
 # -------------------- Summary variable classes --------------------------
 density <- area_of_plot_ha * number_of_plots
@@ -262,6 +277,56 @@ summary_variable_classes_table <- rbind(
 
 rownames(summary_variable_classes_table) <- c("1 - 5", "5 - 10", "10 - 15", "15 - 20", "20 - 25", "25>", "Total")
 
+## -------------------- AG CD Classes --------------------------------------- ##
+# Build summary_ag_cd_classes_table
+summary_ag_cd_classes_table <- data.frame(
+  "CD" = c(
+    length(class_1_5_cd$CROWN.DIAMETER),
+    length(class_5_10_cd$CROWN.DIAMETER),
+    length(class_10_15_cd$CROWN.DIAMETER),
+    length(class_15_20_cd$CROWN.DIAMETER),
+    length(class_20_25_cd$CROWN.DIAMETER),
+    length(class_25_cd$CROWN.DIAMETER)
+  ),
+  "Trees.ha" = c(
+    nrow(class_1_5_cd)  * expansion_factor,
+    nrow(class_5_10_cd) * expansion_factor,
+    nrow(class_10_15_cd)* expansion_factor,
+    nrow(class_15_20_cd)* expansion_factor,
+    nrow(class_20_25_cd)* expansion_factor,
+    nrow(class_25_cd)   * expansion_factor
+  ),
+  "AGB.tons" = c(
+    round(sum(class_1_5_cd$AGB.tons, na.rm = TRUE) * expansion_factor, 2),
+    round(sum(class_5_10_cd$AGB.tons, na.rm = TRUE) * expansion_factor, 2),
+    round(sum(class_10_15_cd$AGB.tons, na.rm = TRUE) * expansion_factor, 2),
+    round(sum(class_15_20_cd$AGB.tons, na.rm = TRUE) * expansion_factor, 2),
+    round(sum(class_20_25_cd$AGB.tons, na.rm = TRUE) * expansion_factor, 2),
+    round(sum(class_25_cd$AGB.tons, na.rm = TRUE) * expansion_factor, 2)
+  ),
+  "AGC.tons" = c(
+    round(sum(class_1_5_cd$AGC.tons, na.rm = TRUE) * expansion_factor, 2),
+    round(sum(class_5_10_cd$AGC.tons, na.rm = TRUE) * expansion_factor, 2),
+    round(sum(class_10_15_cd$AGC.tons, na.rm = TRUE) * expansion_factor, 2),
+    round(sum(class_15_20_cd$AGC.tons, na.rm = TRUE) * expansion_factor, 2),
+    round(sum(class_20_25_cd$AGC.tons, na.rm = TRUE) * expansion_factor, 2),
+    round(sum(class_25_cd$AGC.tons, na.rm = TRUE) * expansion_factor, 2)
+  )
+)
+
+# Add totals row
+summary_ag_cd_classes_table <- rbind(
+  summary_ag_cd_classes_table,
+  c(
+    sum(summary_ag_cd_classes_table$CD, na.rm = TRUE),
+    sum(summary_ag_cd_classes_table$Trees.ha, na.rm = TRUE),
+    sum(summary_ag_cd_classes_table$AGB.tons, na.rm = TRUE),
+    sum(summary_ag_cd_classes_table$AGC.tons, na.rm = TRUE)
+  )
+)
+
+rownames(summary_ag_cd_classes_table) <- c("1 - 5", "5 - 10", "10 - 15", "15 - 20", "20 - 25", "25 >", "Total")
+
 # -------------------- Histogram summary data & plot ----------------------
 hist_summary_data <- data.frame(
   "Clasess" = c("1-5", "5-10", "10-15", "15-20", "20-25", "25>"),
@@ -302,6 +367,7 @@ export_table(summary_agc_table, "summary_agc_table")
 export_table(summary_ag_classes_table, "summary_ag_classes_table")
 export_table(summary_variable_classes_table, "summary_variable_classes_table")
 export_table(hist_summary_data, "hist_summary_data")
+export_table(summary_ag_cd_classes_table, "summary_ag_cd_classes_table")
 
 # -------------------- Generate & export ALL relevant plots -----------------
 
@@ -321,6 +387,7 @@ p_diameter <- ggplot(dataset, aes(x = DIAMETER)) +
   geom_histogram(bins = 30, fill = "steelblue", color = "black") +
   theme_minimal() +
   labs(title = "Diameter Distribution", x = "Diameter (cm)", y = "Frequency")
+p_diameter
 save_gg(p_diameter, "diameter_distribution.png")
 
 # 2. Height histogram
@@ -328,6 +395,7 @@ p_height <- ggplot(dataset, aes(x = HEIGHT)) +
   geom_histogram(bins = 30, fill = "seagreen", color = "black") +
   theme_minimal() +
   labs(title = "Height Distribution", x = "Height (m)", y = "Frequency")
+p_height
 save_gg(p_height, "height_distribution.png")
 
 # 3. Crown diameter histogram
@@ -335,6 +403,7 @@ p_crown <- ggplot(dataset, aes(x = CROWN.DIAMETER)) +
   geom_histogram(bins = 30, fill = "orange", color = "black") +
   theme_minimal() +
   labs(title = "Crown Diameter Distribution", x = "Crown Diameter (m)", y = "Frequency")
+p_crown
 save_gg(p_crown, "crown_diameter_distribution.png")
 
 # 4. AGB (tons/ha) histogram - use dot-named column
@@ -342,6 +411,7 @@ p_agb_ha <- ggplot(dataset, aes(x = `AGB.tons.ha`)) +
   geom_histogram(bins = 30, fill = "purple", color = "black") +
   theme_minimal() +
   labs(title = "Above Ground Biomass (tons/ha)", x = "AGB (tons/ha)", y = "Frequency")
+p_agb_ha
 save_gg(p_agb_ha, "agb_tons_ha_distribution.png")
 
 # 5. AGC (tons/ha) histogram
@@ -349,6 +419,7 @@ p_agc_ha <- ggplot(dataset, aes(x = `AGC.tons.ha`)) +
   geom_histogram(bins = 30, fill = "darkred", color = "black") +
   theme_minimal() +
   labs(title = "Above Ground Carbon (tons/ha)", x = "AGC (tons/ha)", y = "Frequency")
+p_agc_ha
 save_gg(p_agc_ha, "agc_tons_ha_distribution.png")
 
 # 6. AGB.kg histogram (per tree)
@@ -356,6 +427,7 @@ p_agb_kg <- ggplot(dataset, aes(x = `AGB.kg`)) +
   geom_histogram(bins = 30, fill = "#6a4c93", color = "black") +
   theme_minimal() +
   labs(title = "Above Ground Biomass per Tree (kg)", x = "AGB (kg/tree)", y = "Frequency")
+p_agb_kg
 save_gg(p_agb_kg, "agb_kg_distribution.png")
 
 # 7. AGC.kg histogram (per tree)
@@ -363,6 +435,7 @@ p_agc_kg <- ggplot(dataset, aes(x = `AGC.kg`)) +
   geom_histogram(bins = 30, fill = "#a03232", color = "black") +
   theme_minimal() +
   labs(title = "Above Ground Carbon per Tree (kg)", x = "AGC (kg/tree)", y = "Frequency")
+p_agc_kg
 save_gg(p_agc_kg, "agc_kg_distribution.png")
 
 # 8. Scatter: AGB per tree vs DIAMETER
@@ -371,6 +444,7 @@ p_sc_agb_dbh <- ggplot(dataset, aes(x = DIAMETER, y = `AGB.kg`)) +
   geom_smooth(method = "lm", se = TRUE) +
   theme_minimal() +
   labs(title = "AGB (kg) vs DIAMETER", x = "Diameter (cm)", y = "AGB (kg)")
+p_sc_agb_dbh
 save_gg(p_sc_agb_dbh, "scatter_agbkg_vs_diameter.png")
 
 # 9. Scatter: AGB (tons/ha) vs DIAMETER (per-tree AGB vs DBH is above)
@@ -379,6 +453,7 @@ p_sc_agbtha_dbh <- ggplot(dataset, aes(x = DIAMETER, y = `AGB.tons.ha`)) +
   geom_smooth(method = "lm", se = TRUE) +
   theme_minimal() +
   labs(title = "AGB (tons/ha) vs DIAMETER", x = "Diameter (cm)", y = "AGB (tons/ha)")
+p_sc_agbtha_dbh
 save_gg(p_sc_agbtha_dbh, "scatter_agbtons_ha_vs_diameter.png")
 
 # 10. Scatter: HEIGHT vs DIAMETER
@@ -387,6 +462,7 @@ p_sc_height_dbh <- ggplot(dataset, aes(x = DIAMETER, y = HEIGHT)) +
   geom_smooth(method = "lm", se = TRUE) +
   theme_minimal() +
   labs(title = "Height vs DIAMETER", x = "Diameter (cm)", y = "Height (m)")
+p_sc_height_dbh
 save_gg(p_sc_height_dbh, "scatter_height_vs_diameter.png")
 
 # 11. Species bar plot (Trees per ha)
@@ -398,19 +474,24 @@ p_species <- species_dist_table %>%
   theme_minimal() +
   labs(title = "Species Trees per Hectare", x = "Species", y = "Trees per ha") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+p_species
 save_gg(p_species, "species_trees_per_ha.png")
 
 # 12. Histogram summary plot (your hist_summary_data)
+hist_plot
 save_gg(hist_plot, "hist_summary_dbh_trees_ha.png")
 
 # 13. Boxplots for DIAMETER / HEIGHT / BA (optional but useful)
 p_box_dbh <- ggplot(dataset, aes(y = DIAMETER)) + geom_boxplot() + labs(title = "Boxplot: DIAMETER")
+p_box_dbh
 save_gg(p_box_dbh, "boxplot_diameter.png")
 
 p_box_height <- ggplot(dataset, aes(y = HEIGHT)) + geom_boxplot() + labs(title = "Boxplot: HEIGHT")
+p_box_height
 save_gg(p_box_height, "boxplot_height.png")
 
 p_box_ba <- ggplot(dataset, aes(y = BA)) + geom_boxplot() + labs(title = "Boxplot: BA")
+p_box_ba
 save_gg(p_box_ba, "boxplot_ba.png")
 
 # 14. Save a small diagnostics CSV that lists which plots were saved (for tracing)
