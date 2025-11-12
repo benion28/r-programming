@@ -95,8 +95,9 @@ for (var in names(levene_results)) {
 }
 
 #----------------------------------- ANOVA Tests -----------------------------#
+raw_anova_diameter <- aov(DIAMETER ~ TREATMENT, data = dataset)
 aov_models <- list(
-  DIAMETER = aov(DIAMETER ~ TREATMENT, data = dataset),
+  DIAMETER = raw_anova_diameter,
   HEIGHT = aov(HEIGHT ~ TREATMENT, data = dataset),
   NO.LEAVES = aov(NO.LEAVES ~ TREATMENT, data = dataset)
 )
@@ -135,6 +136,9 @@ invisible(lapply(names(anova_results), function(name) {
   capture.output(anova_results[[name]],
                  file = file.path(tables_dir, paste0("anova_", name, ".txt")))
 }))
+
+# F-Critical Value
+f_critical <- qf(1 - 0.05, summary(raw_anova_diameter)[[1]][1, 1], summary(raw_anova_diameter)[[1]][2, 1])
 
 #----------------------------------- Post Hoc Tests (Tukey + HSD) ------------#
 for (var in names(aov_models)) {
