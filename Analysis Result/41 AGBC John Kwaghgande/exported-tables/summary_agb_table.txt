@@ -1,6 +1,6 @@
 AGB.kg,AGB.tons,AGB.kg.ha,AGB.tons.ha
-Mean,1368.1,1.368,912.1,0.912
-Standard Deviation,1134.4,1.134,756.3,0.756
-Minimum,200.1,0.2,133.4,0.133
-Maximum,5735.7,5.736,3823.8,3.824
+Mean,1368.1,1.368,5700.4,5.7
+Standard Deviation,1134.4,1.134,4726.7,4.727
+Minimum,200.1,0.2,833.7,0.834
+Maximum,5735.7,5.736,23898.9,23.899
 Sample Size,127,127,127,127

@@ -1,0 +1,316 @@
+#----------------------------------- START ----------------------------#
+# Refactored Species Diversity Script (exports tables + plots)
+# Requires: pacman, ggplot2, tidyverse, dplyr, psych, abdiv, BiodiversityR
+
+# Load Libraries
+pacman::p_load(pacman, ggplot2, tidyverse, dplyr, psych, abdiv, BiodiversityR)
+
+#----------------------------------- Export Directories ----------------------#
+export_dir <- "G://Benion//Benion Programmings//R//Analysis Result//43 Spp-Div Moses Olajide"
+tables_dir  <- file.path(export_dir, "exported-tables")
+plots_dir   <- file.path(export_dir, "exported-figures")
+
+if (!dir.exists(tables_dir)) dir.create(tables_dir, recursive = TRUE)
+if (!dir.exists(plots_dir)) dir.create(plots_dir, recursive = TRUE)
+
+# Helper function for exporting (TXT & CSV) and printing a preview
+export_table <- function(data, name, row.names = FALSE, sep = ",") {
+  txt_path <- file.path(tables_dir, paste0(name, ".txt"))
+  csv_path <- file.path(tables_dir, paste0(name, ".csv"))
+  write.table(data, file = txt_path, sep = sep, quote = FALSE, row.names = row.names)
+  write.csv(data, file = csv_path, quote = FALSE, row.names = row.names)
+  message("Exported: ", csv_path)
+  print(head(data, 8))
+}
+
+#----------------------------------- Load Data --------------------------------#
+setwd(export_dir)
+dataset <- read.csv("full-data-18.csv", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+
+# Basic preview & description
+head(dataset, 10)
+summary(dataset)
+data_description <- describe(dataset)
+
+# Ensure column names are consistent (no accidental leading/trailing spaces)
+colnames(dataset) <- trimws(colnames(dataset))
+
+#----------------------------------- Basal area --------------------------------#
+# Convert DIAMETER to meters inside BA formula if DIAMETER is in cm
+dataset <- dataset %>%
+  mutate(
+    DIAMETER = as.numeric(DIAMETER),          # ensure numeric
+    HEIGHT = as.numeric(HEIGHT),
+    BA = (pi * (DIAMETER / 100)^2) / 4        # basal area in m^2
+  )
+
+# Export dataset with BA
+export_table(dataset, "dataset_with_BA")
+
+data_description <- describe(dataset)
+export_table(data_description, "data_description", row.names = TRUE)
+
+#----------------------------------- Frequency Distribution -----------------------------#
+# Unique species and frequency table
+frequency_table <- dataset %>%
+  count(SPECIES, name = "Frequency") %>%
+  arrange(desc(Frequency))
+
+# Add BA per species (sum of BA)
+species_ba <- dataset %>%
+  group_by(SPECIES) %>%
+  summarise(BA = sum(BA, na.rm = TRUE)) %>%
+  arrange(desc(BA))
+
+frequency_table <- frequency_table %>%
+  left_join(species_ba, by = "SPECIES") %>%
+  mutate(BA = if_else(is.na(BA), 0, BA))
+
+# Add a 'Total' row (keep types consistent)
+total_row <- tibble(SPECIES = "Total",
+                    Frequency = sum(frequency_table$Frequency, na.rm = TRUE),
+                    BA = sum(frequency_table$BA, na.rm = TRUE))
+
+frequency_table_full <- bind_rows(frequency_table, total_row)
+
+export_table(frequency_table_full, "frequency_table")
+
+#----------------------------------- Number of Trees per Hectare ----------------------#
+one_ha_m2 <- 10000
+area_of_plot_m2 <- 50 * 50
+area_of_plot_ha <- area_of_plot_m2 / one_ha_m2
+number_of_plots <- 6
+expansion_factor <- one_ha_m2 / (area_of_plot_m2 * number_of_plots)  # trees per ha factor
+
+#----------------------------------- Species Distribution --------------------------------#
+species_dist_table <- frequency_table %>%
+  mutate(
+    Trees_HA = round(Frequency * expansion_factor, 1),
+    RF_pct = round((Frequency / sum(Frequency, na.rm = TRUE)) * 100, 1)
+  ) %>%
+  # RD based on Trees_HA proportion of total
+  mutate(
+    RD_pct = round((Trees_HA / sum(Trees_HA, na.rm = TRUE)) * 100, 1),
+    RDo_pct = round((BA / sum(BA, na.rm = TRUE)) * 100, 1),
+    IVI = round(RF_pct + RD_pct + RDo_pct, 1)
+  )
+
+# Append totals row (numeric sums)
+species_dist_table_full <- species_dist_table %>%
+  bind_rows(tibble(
+    SPECIES = "Total",
+    Frequency = sum(species_dist_table$Frequency, na.rm = TRUE),
+    Trees_HA = sum(species_dist_table$Trees_HA, na.rm = TRUE),
+    RF_pct = sum(species_dist_table$RF_pct, na.rm = TRUE),
+    RD_pct = sum(species_dist_table$RD_pct, na.rm = TRUE),
+    RDo_pct = sum(species_dist_table$RDo_pct, na.rm = TRUE),
+    IVI = sum(species_dist_table$IVI, na.rm = TRUE)
+  ))
+
+export_table(species_dist_table_full, "species_distribution_table")
+
+#----------------------------------- IVI (importance value index) -----------------------------#
+# Using BiodiversityR's importancevalue.comp as you did before
+# The function expects particular column names: site, species, count, basal
+# You had used site="PLOT", species="SPECIES", count="COUNT", basal="BA", factor="FOREST"
+# Make sure those columns exist; if COUNT not present, compute as 1 per record (if each row is a tree)
+if (!"COUNT" %in% colnames(dataset)) dataset$COUNT <- 1
+
+IVI_plots <- importancevalue.comp(dataset, site = "PLOT", species = "SPECIES",
+                                  count = "COUNT", basal = "BA", factor = "PLOT")
+IVI_forest <- importancevalue.comp(dataset, site = "PLOT", species = "SPECIES",
+                                   count = "COUNT", basal = "BA", factor = "FOREST")
+
+# Convert to data frame
+IVI_forest_table <- as.data.frame(IVI_forest$FOR)
+
+# Move rownames to column if species names are stored as rownames
+if (is.null(IVI_forest_table$species) &&
+    is.null(IVI_forest_table$SPECIES) &&
+    is.null(IVI_forest_table$sp)) {
+  
+  IVI_forest_table <- IVI_forest_table %>%
+    mutate(SPECIES = rownames(IVI_forest_table))
+}
+
+# Identify correct species column
+species_col <- intersect(c("species", "SPECIES", "sp"), colnames(IVI_forest_table))[1]
+
+# Build the final table
+IVI_forest_table <- IVI_forest_table %>%
+  mutate(
+    RF  = round(frequency.percent, 1),
+    RD  = round(density.percent, 1),
+    RDo = round(dominance.percent, 1),
+    IVI = round(importance.value, 1)
+  ) %>%
+  select(
+    SPECIES = all_of(species_col),
+    RF, RD, RDo, IVI
+  )
+
+# Add totals (if numeric) as a final row
+IVI_forest_summary <- IVI_forest_table %>%
+  bind_rows(tibble(SPECIES = "Total",
+                   RF = sum(IVI_forest_table$RF, na.rm = TRUE),
+                   RD = sum(IVI_forest_table$RD, na.rm = TRUE),
+                   RDo = sum(IVI_forest_table$RDo, na.rm = TRUE),
+                   IVI = sum(IVI_forest_table$IVI, na.rm = TRUE)))
+
+export_table(IVI_forest_summary, "IVI_forest_summary")
+
+#----------------------------------- Diversity Indices --------------------------------#
+# Use only numeric frequencies (exclude Total row)
+species_unique_freq <- frequency_table$Frequency
+diversity_list <- list(
+  berger_parker = berger_parker_d(species_unique_freq),
+  brillouin = brillouin_d(species_unique_freq),
+  dominance = dominance(species_unique_freq),
+  heip_e = heip_e(species_unique_freq),
+  invsimpson = invsimpson(species_unique_freq),
+  kempton_taylor_q = kempton_taylor_q(species_unique_freq),
+  margalef = margalef(species_unique_freq),
+  mcintosh_d = mcintosh_d(species_unique_freq),
+  mcintosh_e = mcintosh_e(species_unique_freq),
+  menhinick = menhinick(species_unique_freq),
+  pielou_e = pielou_e(species_unique_freq),
+  richness = richness(species_unique_freq),
+  shannon = shannon(species_unique_freq),
+  simpson = simpson(species_unique_freq),
+  simpson_e = simpson_e(species_unique_freq),
+  strong = strong(species_unique_freq)
+)
+
+species_diversity <- enframe(unlist(diversity_list), name = "Index", value = "Value")
+export_table(species_diversity, "species_diversity_indices")
+
+#----------------------------------- Class Summaries (DBH & HEIGHT) -----------------------------#
+# DBH classes (counts and densities)
+class_bins_dbh <- list(
+  "1-5"   = dataset %>% filter(DIAMETER > 1  & DIAMETER <= 5),
+  "5-10"  = dataset %>% filter(DIAMETER > 5  & DIAMETER <= 10),
+  "10-15" = dataset %>% filter(DIAMETER > 10 & DIAMETER <= 15),
+  "15-20" = dataset %>% filter(DIAMETER > 15 & DIAMETER <= 20),
+  "20-25" = dataset %>% filter(DIAMETER > 20 & DIAMETER <= 25),
+  "25>"   = dataset %>% filter(DIAMETER > 25)
+)
+
+dbhs <- tibble(
+  Class = names(class_bins_dbh),
+  Count = sapply(class_bins_dbh, nrow)
+) %>%
+  mutate(
+    Trees_ha = round(Count * expansion_factor, 1)
+  )
+
+#----------------------------------- Class Summaries (DBH & HEIGHT) -----------------------------#
+# DBH classes (counts and densities)
+class_bins_dbh_2 <- list(
+  "1-10"   = dataset %>% filter(DIAMETER > 1  & DIAMETER <= 10),
+  "10-20"  = dataset %>% filter(DIAMETER > 10  & DIAMETER <= 20),
+  "20-30" = dataset %>% filter(DIAMETER > 20 & DIAMETER <= 30),
+  "30-40" = dataset %>% filter(DIAMETER > 30 & DIAMETER <= 40),
+  "40-50" = dataset %>% filter(DIAMETER > 40 & DIAMETER <= 50),
+  "50>"   = dataset %>% filter(DIAMETER > 50)
+)
+
+dbhs_2 <- tibble(
+  Class = names(class_bins_dbh_2),
+  Count = sapply(class_bins_dbh_2, nrow)
+) %>%
+  mutate(
+    Trees_ha = round(Count * expansion_factor, 1)
+  )
+
+export_table(dbhs, "dbh_class_summary")
+export_table(dbhs_2, "dbh_class_summary_2")
+
+# Height classes (counts and densities)
+class_bins_tht <- list(
+  "1-5"  = dataset %>% filter(HEIGHT > 1 & HEIGHT <= 5),
+  "5-10" = dataset %>% filter(HEIGHT > 5 & HEIGHT <= 10),
+  "10-15"= dataset %>% filter(HEIGHT > 10 & HEIGHT <= 15),
+  "15-20"= dataset %>% filter(HEIGHT > 15 & HEIGHT <= 20),
+  "20-25"= dataset %>% filter(HEIGHT > 20 & HEIGHT <= 25),
+  "25>"  = dataset %>% filter(HEIGHT > 25)
+)
+
+thts <- tibble(
+  Class = names(class_bins_tht),
+  Count = sapply(class_bins_tht, nrow)
+) %>%
+  mutate(
+    Trees_ha = round(Count * expansion_factor, 1)
+  )
+
+export_table(thts, "height_class_summary")
+
+#----------------------------------- Summary Variable Classes Table -----------------------------#
+density <- area_of_plot_ha * number_of_plots  # area covered by plots (ha)
+summary_variable_classes_table <- tibble(
+  Class = c("1-5", "5-10", "10-15", "15-20", "20-25", "25>"),
+  DBH_count = sapply(class_bins_dbh, nrow),
+  DBH_trees_ha = round(sapply(class_bins_dbh, nrow) * expansion_factor, 3),
+  THT_count = sapply(class_bins_tht, nrow),
+  THT_trees_ha = round(sapply(class_bins_tht, nrow) * expansion_factor, 3)
+) %>%
+  bind_rows(tibble(
+    Class = "Total",
+    DBH_count = sum(.$DBH_count, na.rm = TRUE),
+    DBH_trees_ha = sum(.$DBH_trees_ha, na.rm = TRUE),
+    THT_count = sum(.$THT_count, na.rm = TRUE),
+    THT_trees_ha = sum(.$THT_trees_ha, na.rm = TRUE)
+  ))
+
+export_table(summary_variable_classes_table, "summary_variable_classes_table")
+
+#----------------------------------- Plots --------------------------------#
+# Species frequency bar plot
+p_species <- ggplot(frequency_table, aes(x = reorder(SPECIES, -Frequency), y = Frequency)) +
+  geom_col(fill = "#2c7fb8") +
+  labs(title = "Species Frequency", x = "Species", y = "Count") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 60, hjust = 1, size = 8))
+ggsave(filename = file.path(plots_dir, "species_frequency_bar.png"), plot = p_species, width = 10, height = 6, dpi = 300)
+print(p_species)
+
+# DBH histogram
+p_dbh <- ggplot(dataset, aes(x = DIAMETER)) +
+  geom_histogram(bins = 30, color = "black", fill = "steelblue") +
+  labs(title = "DBH distribution", x = "Diameter (cm)", y = "Count") +
+  theme_minimal()
+ggsave(file.path(plots_dir, "dbh_histogram.png"), plot = p_dbh, width = 8, height = 5, dpi = 300)
+print(p_dbh)
+
+# Basal area histogram
+p_ba <- ggplot(dataset, aes(x = BA)) +
+  geom_histogram(bins = 30, color = "black", fill = "darkgreen") +
+  labs(title = "Basal Area distribution", x = "Basal area (m^2)", y = "Count") +
+  theme_minimal()
+ggsave(file.path(plots_dir, "ba_histogram.png"), plot = p_ba, width = 8, height = 5, dpi = 300)
+print(p_ba)
+
+# Class distribution (DBH counts per class)
+p_class_dbh <- ggplot(dbhs, aes(x = Class, y = Count)) +
+  geom_col(fill = "#7b3294") +
+  labs(title = "Stem diameter class counts", x = "DBH class (cm)", y = "Count") +
+  theme_minimal()
+ggsave(file.path(plots_dir, "dbh_class_counts.png"), plot = p_class_dbh, width = 8, height = 5, dpi = 300)
+print(p_class_dbh)
+
+#----------------------------------- Final Exports --------------------------------#
+export_table(frequency_table_full, "frequency_table_full")   # full frequency + total
+export_table(species_dist_table_full, "species_dist_table_full")
+export_table(IVI_forest_summary, "IVI_forest_summary_final")
+export_table(species_diversity, "species_diversity_indices_final")
+
+#----------------------------------- Cleanup --------------------------------#
+p_unload(all)            # unload pacman-loaded packages
+# close any open graphics device(s)
+if (length(grDevices::dev.list()) > 0) grDevices::dev.off()
+# remove all objects (preserve nothing)
+rm(list = ls())
+# clear console
+cat("\014")
+
+#----------------------------------- END --------------------------------#
